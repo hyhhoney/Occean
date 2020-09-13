@@ -4,6 +4,15 @@ public class GithubUser {
     private String login;
     private long id;
     private String bio;
+    private  String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String logIn() {
         return login;
