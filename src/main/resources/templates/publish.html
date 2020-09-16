@@ -4,14 +4,15 @@
 <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 <link rel="stylesheet" href="/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/css/demo.css">
 <link>
-    <meta charset="UTF-8">
-    <title>我的网站</title>
+<meta charset="UTF-8">
+<title>发布-我的网站</title>
 
 
 
 </head>
-<body>
+<body class="body">
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -33,10 +34,6 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li th:if="${session.user!=null}">
-                    <a href="/publish">发布</a>
-
-                </li>
 
                 <li class="dropdown" th:if="${session.user!=null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"> <span class="caret"></span></a>
@@ -48,12 +45,48 @@
                     </ul>
                 </li>
                 <li th:if="${session.user==null}">
-                <a href="https://github.com/login/oauth/authorize?client_id=525effffadb9fa1125f3&redirect_uri=http://localhost:8080/callback&scope=user&state=1">登录</a>
+                    <a href="https://github.com/login/oauth/authorize?client_id=525effffadb9fa1125f3&redirect_uri=http://localhost:8080/callback&scope=user&state=1">登录</a>
 
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
+
 </nav>
+<div class="container-fluid main"  >
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12"   >
+            <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
+            <hr>
+            <form action="/publish">
+                <div class="form-group">
+                    <label for="title">问题标题（简单扼要）</label>
+                    <input type="text" class="form-control" th:value="${title}" id="title" name="title" placeholder="问题标题...">
+                </div>
+                <div class="form-group">
+                    <label for="description">问题补充</label>
+                    <textarea name="description" th:text="${description}" id="description" class="form-control" cols="30" rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tag">添加标签</label>
+                    <input type="text" class="form-control" th:value="${tag}" id="tag" name="tag" placeholder="添加标签，以“.”隔开">
+                </div>
+
+                <div>
+                        <div th:if="${error!=null}"><span class="alert alert-danger" role="alert" th:text="${error}"></span></div>
+
+                    <button type="submit" class="btn btn-success btn-publish">submit</button>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"   >
+            <h3>问题发起指南</h3>
+            <h4>问题标题：请用简洁的语言描述你的问题，不超过25字</h4>
+            *问题补充：
+            *选择标签
+        </div>
+    </div>
+</div>
 </body>
 </html>
