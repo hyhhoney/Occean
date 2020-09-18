@@ -51,9 +51,9 @@ public class AuthorizeContraller {
             String tk = UUID.randomUUID().toString();
             user.setToken(tk);
             user.setName(githubUser.getName());
-            user.setAcounntid(String.valueOf(githubUser.getId()));
-            user.setGmtcreat(System.currentTimeMillis());
-            user.setGmtmodified(user.getGmtcreat());
+            user.setAcounnt_id(String.valueOf(githubUser.getId()));
+            user.setGmt_creat(System.currentTimeMillis());
+            user.setGmt_modified(user.getGmt_creat());
             user.setAvatar_url(githubUser.getAvatar_url());
 
 

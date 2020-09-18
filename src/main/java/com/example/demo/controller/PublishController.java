@@ -22,7 +22,7 @@ public class PublishController {
     private QuestionMapper questionMapper;
     @GetMapping(value = "/publish",params = "title")
     public String doPublish(@RequestParam("title") String title, @RequestParam("description") String description , @RequestParam("tag") String tag, HttpServletRequest request,  Model model){
-        System.out.println("?");
+
         model.addAttribute("title",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
@@ -42,6 +42,10 @@ public class PublishController {
 
         User user;
         Cookie[] cookies=request.getCookies();
+        if(cookies==null){
+            model.addAttribute("error","用户未登录");
+            return "publish";
+        }
         for(Cookie i:cookies) {
             if (i.getName().equals("token")) {
                 String token = i.getValue();
@@ -49,7 +53,7 @@ public class PublishController {
                 if (user != null) {
                     request.getSession().setAttribute("user", user);
                     Question question = new Question();
-                    question.setId(userMapper.getDbUserId(token));
+
                     question.setCreator(Integer.valueOf(userMapper.getDbUserAcountid(token)));
                     question.setTitle(title);
                     question.setTags(tag);
